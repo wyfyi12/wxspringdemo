@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Inter.InterMail">
+	
+	
+	<select id="sMailid" resultType="String">
+		select mailid from mailinfo where mailid=#{0}
+	</select>
+	
+	<select id="salias_passwd" resultType="com.Model.LoginDetail">
+		select alias as alias,passwd as time from personinfo where wxid=#{0}
+	</select>
+	
+	<select id="smaillimit" resultType="com.Model.LoginDetail">
+		select mfrom as alias,msubject as time,mtime as ip,minfo as place from mailinfo where mto=#{1} order by mtime desc limit #{0},10
+	</select>
+	
+	<insert id="insertmailinfo" parameterType="com.Model.Mailinfo" useGeneratedKeys="true">
+		insert into mailinfo(mailid,mfrom,mto,msubject,mtime,mcontent,minfo,misattach) values(#{mailid},#{mfrom},#{mto},#{msubject},#{mtime},#{mcontent},#{minfo},#{misattach})
+	</insert>
+</mapper>

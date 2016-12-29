@@ -1,0 +1,84 @@
+package com.Controller;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.Inter.InterMail;
+import com.Model.LoginDetail;
+
+
+@Controller
+public class MailController {
+	@Resource
+	private InterMail intermail;
+	
+
+	@RequestMapping("/pop3mail.do")
+	public @ResponseBody Map<String,Object> pop3mail(String alias,String passwd){
+		
+		Map<String,Object> map=new HashMap<String, Object>();
+		System.out.println(alias+";"+passwd);
+		POP3ReceiveMailTest pop3=new POP3ReceiveMailTest();
+		pop3.receive(alias, passwd);
+		//从数据库中返回10条邮件
+		List<LoginDetail> list=this.intermail.smaillimit(0,alias);
+		map.put("list", list);
+		return map;
+		
+	}
+
+	//微信企业号返回一个openid，根据此openid登录邮箱1，同步；2，获取邮件
+	@RequestMapping("/wxmail.do")
+	public @ResponseBody Map<String,Object> wxmail(String wxid){
+		
+		LoginDetail aliaspasswd=this.intermail.salias_passwd(wxid);//从数据库获取邮箱账号和密码
+		Map<String,Object> map=new HashMap<String, Object>();
+		System.out.println(aliaspasswd.getAlias()+";"+aliaspasswd.getTime());
+		POP3ReceiveMailTest pop3=new POP3ReceiveMailTest();
+		pop3.receive(aliaspasswd.getAlias(), aliaspasswd.getTime());
+		//从数据库中返回10条邮件
+		List<LoginDetail> list=this.intermail.smaillimit(0,aliaspasswd.getAlias());
+		map.put("list", list);
+		return map;
+		
+	}
+	//获取下一页or上一页邮件；
+	@RequestMapping("/getmail.do")
+	public @ResponseBody Map<String,Object> getmail(String wxid,String page){
+		
+		LoginDetail aliaspasswd=this.intermail.salias_passwd(wxid);//从数据库获取邮箱账号和密码
+		Map<String,Object> map=new HashMap<String, Object>();
+		System.out.println(aliaspasswd.getAlias()+";"+aliaspasswd.getTime());
+		//从数据库中返回10条邮件
+		List<LoginDetail> list=this.intermail.smaillimit(Integer.parseInt(page)*10,aliaspasswd.getAlias());
+		map.put("list", list);
+		return map;
+		
+	}
+	
+	//微信openid （身份认证，绑定手机号） -》从数据库中获取手机号-》关联邮箱和密码
+	//give up
+	@RequestMapping("/loginmail.do")
+	 public @ResponseBody Map<String,Object> loginmail(String alias,String passwd){
+		Map<String, Object> map=new HashMap<String, Object>();
+		try{
+			
+			
+			POP3ReceiveMailTest pop3=new POP3ReceiveMailTest();
+			pop3.receive(alias, passwd);//receive mail
+//			map.put("data", );
+		}catch(Exception e){
+			System.out.println(e.toString());
+			map.put("data","");
+		}
+		return map;
+	}
+	
+}

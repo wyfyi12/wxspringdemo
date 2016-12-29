@@ -1,0 +1,61 @@
+package com.Model;
+
+public class Mailinfo {
+	private String mailid;
+	private String mfrom;
+	private String mto;
+	private String msubject;
+	private String mtime;
+	private String mcontent;
+	private String minfo;
+	private String misattach;
+	public String getMailid() {
+		return mailid;
+	}
+	public void setMailid(String mailid) {
+		this.mailid = mailid;
+	}
+	public String getMfrom() {
+		return mfrom;
+	}
+	public void setMfrom(String mfrom) {
+		this.mfrom = mfrom;
+	}
+	public String getMto() {
+		return mto;
+	}
+	public void setMto(String mto) {
+		this.mto = mto;
+	}
+	public String getMsubject() {
+		return msubject;
+	}
+	public void setMsubject(String msubject) {
+		this.msubject = msubject;
+	}
+	public String getMtime() {
+		return mtime;
+	}
+	public void setMtime(String mtime) {
+		this.mtime = mtime;
+	}
+	public String getMcontent() {
+		return mcontent;
+	}
+	public void setMcontent(String mcontent) {
+		this.mcontent = mcontent;
+	}
+	public String getMinfo() {
+		return minfo;
+	}
+	public void setMinfo(String minfo) {
+		this.minfo = minfo;
+	}
+	public String getMisattach() {
+		return misattach;
+	}
+	public void setMisattach(String misattach) {
+		this.misattach = misattach;
+	}
+	
+}

@@ -1,0 +1,16 @@
+package com.Inter;
+
+import java.util.List;
+
+import com.Model.LoginDetail;
+
+import com.Model.Mailinfo;
+
+
+public interface InterMail {
+
+	public String sMailid(String mailid);
+	public int insertmailinfo(Mailinfo m);
+	public LoginDetail salias_passwd(String wxid);
+	public List<LoginDetail> smaillimit(int page,String alias);
+}
