@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.dao.TokenMapper">  
+  
+    <resultMap type="TokenEntity" id="tokenResultMap">  
+        <id property="type" column="Type"/>  
+        <result property="wxtoken" column="WXToken"/>  
+        <result property="time" column="Time"/>  
+    </resultMap>  
+      
+    <!-- 查询token，根据type -->  
+    <select id="getToken" parameterType="String" resultType="TokenEntity" resultMap="tokenResultMap">  
+        <![CDATA[ 
+            SELECT * from TOKEN_TBL TT 
+                WHERE TT.TYPE = #{type}  
+        ]]>   
+    </select>  
+    
+    <!-- 插入token数据 -->  
+    <insert id="insertToken" parameterType="String">  
+        <![CDATA[ 
+            insert into TOKEN_TBL(Type,Time,WXToken) values(#{type},#{time},#{wxtoken})  
+        ]]>   
+    </insert> 
+      
+     <update id="updateToken" parameterType="String">
+     <![CDATA[ 
+            update TOKEN_TBL set WXToken=#{wxtoken},Time=#{time} where Type=#{type}  
+        ]]> 
+     </update> 
+      
+</mapper>

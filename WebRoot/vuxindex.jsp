@@ -26,7 +26,25 @@
    	<divider></divider>
 	</div>
 	<script>
-	
+	var date=new Date();
+	var month=date.getMonth()+1;
+	var strDate = date.getDate();
+	var min=date.getMinutes();
+	var hour=date.getHours();
+	if(month >= 1 && month <= 9){
+		 month = "0" + month;
+	}
+	if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+	if (min >= 0 && min <= 9) {
+		min = "0" + min;
+    }
+	if (hour >= 0 && hour <= 9) {
+		hour = "0" + hour;
+    }
+	var time=date.getFullYear()+"/"+month+"/"+strDate+" "+hour+":"+min+":"+date.getSeconds();
+	alert(time);
 	Vue.component('group', vuxGroup)
 	Vue.component('divider', vuxDivider)
 	Vue.component('cell', vuxCell)
@@ -35,7 +53,7 @@
 	new Vue({
 		el : '#demo',
 		data: {
-		    time1: new Date('2016/01/03 19:19:19'),
+		    time1: new Date(time),
 		  }
 	})</script>
 </body>
